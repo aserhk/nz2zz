@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WebM 视频播放器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+    }
+    h1 {
+      color: #333;
+    }
+    .player-container {
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #000;
+    }
+    video {
+      width: 100%;
+      display: block;
+    }
+    .controls {
+      padding: 10px;
+      background: #333;
+      color: white;
+      text-align: center;
+    }
+    button {
+      margin: 0 5px;
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      background: #007bff;
+      color: white;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>WebM 视频播放器</h1>
+
+  <div class="player-container">
+    <video id="myVideo" controls>
+      <!-- 确保路径正确 -->
+      <source src="nz2_av1_10f_5.5k_a6.5k.webm" type='video/webm; codecs="av01.0.05M.08,opus"' />
+      您的浏览器不支持 WebM (AV1) 视频播放。
+    </video>
+    <div class="controls">
+      <button onclick="document.getElementById('myVideo').play()">播放</button>
+      <button onclick="document.getElementById('myVideo').pause()">暂停</button>
+      <button onclick="document.getElementById('myVideo').volume = 1.0">音量最大</button>
+      <button onclick="document.getElementById('myVideo').volume = 0.5">音量中等</button>
+      <button onclick="document.getElementById('myVideo').currentTime = 0">从头开始</button>
+    </div>
+    <div id="error" class="error"></div>
+  </div>
+
+  <script>
+    const video = document.getElementById('myVideo');
+    const errorDiv = document.getElementById('error');
+
+    video.addEventListener('error', () => {
+      const errorMsg = `视频加载失败，请检查文件是否存在或格式是否支持。
+                        确保文件 'nz2_av1_10f_5.5k_a6.5k.webm' 已上传到服务器根目录。`;
+      errorDiv.textContent = errorMsg;
+    });
+
+    video.addEventListener('canplay', () => {
+      errorDiv.textContent = '';
+    });
+  </script>
+
+</body>
+</html>
